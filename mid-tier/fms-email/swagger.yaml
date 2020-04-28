@@ -1,0 +1,125 @@
+swagger: '2.0'
+
+# Document metaData
+
+info:
+  version : "1.0.0"
+  title: fms-email
+# URL Data  
+host: localhost
+basePath: /sendMail
+tags: 
+ - name: send email
+schemes: 
+  - http
+# End Points
+paths:
+  # get event
+  /{mailType}:
+    post:
+      tags:
+       - mail
+      description: send email
+   
+      
+      produces:
+        - application/json
+      parameters:
+        - name: mailType
+          in: path 
+          required: true
+          type: string
+
+           
+      responses: 
+          200:
+            description : sent mail successfully
+           
+              
+          404:
+            description: No DataFound
+            
+ 
+  
+          
+            
+definitions:
+
+    
+    Event:
+      type: object
+      properties:
+        eventId:
+          type: integer
+        eventNo:
+          type: string
+        month:
+          type: string
+        location:
+          type: string
+        beneficiaryName:
+          type: string
+        address:
+          type: string
+        councilName:
+          type: string
+        project:
+          type: string
+        category:
+          type: string
+        eventName:
+          type: string
+        eventDescription:
+          type: string
+        eventSummary:
+          $ref: "#/definitions/EventSummary"
+          
+    EventSummary:
+      type: object
+      properties:
+        eventUserId:
+          type: integer
+        userId:
+          type: integer
+        eventId:
+          type: integer
+        participation:
+          type: string
+        volunteerHr:
+          type: integer
+        travelHr:
+          type: integer
+    
+    EventDetails:
+      type: object
+      properties:
+        eventUserId:
+          type: integer
+        userId:
+          $ref: "#/definitions/User"
+        eventId:
+           $ref: "#/definitions/Event"
+        participation:
+          type: string
+        volunteerHr:
+          type: integer
+        travelHr:
+          type: integer
+          
+    User:
+      type: object
+      properties:
+        userName: 
+          type: string
+        password: 
+          type: string
+        email:
+          type: string
+        contactNumber:
+          type: string
+        role:
+          type: string
+        businessUnit:
+          type: string
+    
+    

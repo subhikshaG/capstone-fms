@@ -1,0 +1,137 @@
+swagger: '2.0'
+
+# Document metaData
+
+info:
+  version : "1.0.0"
+  title: fms-upload
+# URL Data  
+host: localhost
+basePath: /upload
+tags: 
+ - name: event
+schemes: 
+  - http
+# send in path
+paths:
+  # get event
+  /dir:
+    get:
+      tags:
+       - Dashboard
+      description: get event details
+      produces:
+        - application/json
+      
+      responses: 
+          200:
+            description : successful
+              
+          404:
+            description: failure
+            
+  /path:
+    get:
+      tags:
+       - Dashboard
+      description: get event details
+      produces:
+        - application/json
+      parameters:
+        - name: file
+          in: path 
+          required: true
+          type: integer
+
+           
+      responses: 
+          200:
+            description : successful
+              
+          404:
+            description: failed 
+            
+  
+          
+            
+definitions:
+
+    
+    Event:
+      type: object
+      properties:
+        eventId:
+          type: string
+        month:
+          type: string
+        location:
+          type: string
+        beneficiaryName:
+          type: string
+        address:
+          type: string
+        councilName:
+          type: string
+        project:
+          type: string
+        category:
+          type: string
+        eventName:
+          type: string
+        eventDescription:
+          type: string
+
+          
+    EventSummary:
+      type: object
+      properties:
+        summaryId:
+          type: integer
+        totalVolunteer:
+          type: integer
+        noOfHrs:
+          type: number
+        travelHrs:
+          type: number
+        livesImpact:
+          type: number
+        avgVolunteer:
+          type: number
+        eventId:
+          type: string
+    
+    EventDetails:
+      type: object
+      properties:
+        eventUserId:
+          type: integer
+        userId:
+          type: integer
+        eventId:
+          type: string
+        participation:
+          type: string
+        volunteerHr:
+          type: number
+        travelHr:
+          type: number
+          
+    User:
+      type: object
+      properties:
+        userId:
+          type: integer
+        userName: 
+          type: string
+        password: 
+          type: string
+        email:
+          type: string
+        contactNumber:
+          type: string
+        role:
+          type: string
+        businessUnit:
+          type: string
+    
+    

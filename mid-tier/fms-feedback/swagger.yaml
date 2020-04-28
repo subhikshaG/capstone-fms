@@ -1,0 +1,270 @@
+swagger: '2.0'
+
+# Document metaData
+
+info:
+  version : "1.0.0"
+  title: feedback-event
+# URL Data  
+host: localhost
+basePath: /event
+tags: 
+ - name: event
+schemes: 
+  - http
+# End Points
+paths:
+  # get feedback
+  /feedback:
+    get:
+      tags:
+       - feedback
+      description: get feedback details
+   
+      
+      produces:
+        - application/json
+    
+      responses: 
+          200:
+            description : fetch  feedback
+            schema:
+              type: "array"
+              items:
+                $ref: "#/definitions/Feedback"
+
+          404:
+            description: No DataFound
+    put:
+      tags:
+       - feedback
+      description: update feedback
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body 
+          required: true
+          schema:
+            type: object
+            items:
+              $ref: "#/definitions/FeedbackQuesAns"
+              
+      responses: 
+          200:
+            description : successfully updated
+
+          404:
+            description: unsuccessful 
+            
+    
+    post:
+      tags:
+       - feedback
+      description: add feedback
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body 
+          required: true
+          schema:
+            type: object
+            items:
+              $ref: "#/definitions/FeedbackQuesAns"
+
+
+           
+      responses: 
+          200:
+            description : successfully added
+
+          404:
+            description: unsuccessful 
+            
+            
+  /feedback/{fbId}:
+    get:
+      tags:
+       - feedback by Id
+      description: get feedback by id
+      produces:
+        - application/json
+      parameters:
+        - name: fbId
+          in: path 
+          required: true
+          type: integer
+
+           
+      responses: 
+          200:
+            description : fetch feedback by Id
+            schema:
+              $ref: '#/definitions/Feedback'
+              
+          404:
+            description: No DataFound
+            
+  /feedbackAns:
+    post:
+      tags:
+       - participant
+      description: answer feedback
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/FeedbackAnswer"
+
+
+           
+      responses: 
+          200:
+            description : successfully updated answers
+
+          404:
+            description: unsuccessful
+  
+    
+   
+  
+          
+            
+definitions:
+
+    
+    Event:
+      type: object
+      properties:
+        eventId:
+          type: integer
+        eventNo:
+          type: string
+        month:
+          type: string
+        location:
+          type: string
+        beneficiaryName:
+          type: string
+        address:
+          type: string
+        councilName:
+          type: string
+        project:
+          type: string
+        category:
+          type: string
+        eventName:
+          type: string
+        eventDescription:
+          type: string
+  
+    EventSummary:
+      type: object
+      properties:
+        summaryId:
+          type: integer
+        totalVolunteer:
+          type: integer
+        noOfHrs:
+          type: number
+        travelHrs:
+          type: number
+        livesImpact:
+          type: number
+        avgVolunteer:
+          type: number
+        eventId:
+          type: integer
+    
+    EventDetails:
+      type: object
+      properties:
+        eventUserId:
+          type: integer
+        userId:
+          type: integer
+        eventId:
+           type: integer
+        participation:
+          type: string
+        volunteerHr:
+          type: number
+        travelHr:
+          type: number
+          
+    User:
+      type: object
+      properties:
+        userId:
+          type: integer
+        userName: 
+          type: string
+        password: 
+          type: string
+        email:
+          type: string
+        contactNumber:
+          type: string
+        role:
+          type: string
+        businessUnit:
+          type: string
+          
+    Feedback:
+      type: object
+      properties:
+        feedbackId: 
+          type: integer
+        feedbackType: 
+          type: integer
+        feedbackAnswerType:
+          type: string
+        feedbackQuestion:
+          type: string
+          
+          
+    FeedbackQuesAns:
+      type: object
+      properties:
+        feedbackId: 
+          type: integer
+        feedbackType: 
+          type: integer
+        feedbackAnswerType:
+          type: string
+        feedbackQuestion:
+          type: string
+        feedbackAns:
+          type: array
+          items:
+            $ref: '#/definitions/FeedbackAnswer'
+    
+    FeedbackType:
+      type: object
+      properties:
+        feedbackTypeId: 
+          type: integer
+        feedbackName: 
+          type: string
+          
+    FeedbackAnswer:
+      type: object
+      properties:
+        feedbackAnswerId: 
+          type: integer
+        userId: 
+          type: integer
+        feedbackAnswer:
+          type: string
+    
+
+
+    
+    
